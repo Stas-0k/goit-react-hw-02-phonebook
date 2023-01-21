@@ -1,16 +1,38 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import React, { Component } from 'react';
+
+class App extends Component {
+  state = {
+    contacts: [],
+    name: '',
+  };
+
+
+  handleSubmit = (evt) => { 
+    evt.preventDefault();
+    const form = evt.currentTarget; 
+    const name = form.elements.name.value;
+    this.setState()
+    form.reset();
+  }
+
+  render() {
+    return (
+      
+        <form onSubmit={this.handleSubmit}>
+          Name
+          <input
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+        
+        <button type="submit">Add contact</button>
+        </form>
+      
+    );
+  }
+}
+
+export default App;
