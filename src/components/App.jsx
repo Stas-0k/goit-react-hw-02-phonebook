@@ -10,7 +10,7 @@ class App extends Component {
   handleSubmit = (evt) => { 
     evt.preventDefault();
     const form = evt.currentTarget; 
-    const name = form.elements.name.value;
+    //const name = form.elements.name.value;
     this.setState()
     form.reset();
   }
