@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import React, { Component } from 'react';
-import css from './contact-form.module.css'
+import css from './contact-form.module.css';
 
 class ContactForm extends Component {
   state = {
@@ -9,28 +9,24 @@ class ContactForm extends Component {
     number: '',
   };
 
+  static propTypes = { onSubmit: propTypes.func.isRequired };
+
   handleChange = evt => {
     const { name, value } = evt.target;
     this.setState({ [name]: value });
-    };
-    
-    handleSubmit = evt => {
+  };
+
+  handleSubmit = evt => {
     evt.preventDefault();
     const newContact = {
       name: this.state.name,
       id: nanoid(),
       number: this.state.number,
-        };
+    };
 
-        
-        
-
-    this.props.onSubmit(newContact)
-    this.setState({name:'',number:''})
-    
+    this.props.onSubmit(newContact);
+    this.setState({ name: '', number: '' });
   };
-
-  
 
   render() {
     const { name, number } = this.state;
@@ -58,7 +54,9 @@ class ContactForm extends Component {
           required
           onChange={this.handleChange}
         />
-        <button type="submit" className={css.bttn_contact}>Add contact</button>
+        <button type="submit" className={css.bttn_contact}>
+          Add contact
+        </button>
       </form>
     );
   }
@@ -66,7 +64,6 @@ class ContactForm extends Component {
 
 export default ContactForm;
 
-
-ContactForm.propTypes = { 
-   onSubmit: propTypes.func.isRequired,
-}
+ContactForm.propTypes = {
+  onSubmit: propTypes.func.isRequired,
+};

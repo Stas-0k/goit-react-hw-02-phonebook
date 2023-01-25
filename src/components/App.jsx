@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ContactForm from './contact-form'
-import Filter from './filter'
-import ContactList from './contact-list'
+import ContactForm from './contact-form';
+import Filter from './filter';
+import ContactList from './contact-list';
 
 class App extends Component {
   state = {
@@ -15,68 +15,53 @@ class App extends Component {
   };
 
   addContact = contact => {
-    
-    if (this.state.contacts.find(item => item.name.toLowerCase() === contact.name.toLowerCase())) {
-      alert(`${contact.name} is already in contacts`)
+    if (
+      this.state.contacts.find(
+        item => item.name.toLowerCase() === contact.name.toLowerCase()
+      )
+    ) {
+      alert(`${contact.name} is already in contacts`);
     } else {
-    
       this.setState(({ contacts }) => ({
         contacts: [...contacts, contact],
-      }))
+      }));
     }
-    
-  }
-
-  
+  };
 
   changeFilter = evt => {
     this.setState({ filter: evt.currentTarget.value });
   };
 
-  
-
-  funcRender = contacts => {
-    return contacts.map(item => (
-      <li key={item.id}>
-        {item.name}: {item.number}
-      </li>
-    ));
-  };
-
-
-
   getContacts = () => {
     const { filter, contacts } = this.state;
-     
+
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
-    )
-  }
+    );
+  };
 
   contactDelete = contactId => {
     this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact=>contact.id!==contactId)
-    }))
-
-   }
-  
-  
-
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
 
   render() {
-    const {filter} = this.state;
+    const { filter } = this.state;
 
     return (
       <div>
-        <h1>Phonebook</h1>        
+        <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
-         <Filter value={filter} onChange={this.changeFilter} />
-        <ContactList contacts={this.getContacts()} onDelete={this.contactDelete} />     
+        <Filter value={filter} onChange={this.changeFilter} />
+        <ContactList
+          contacts={this.getContacts()}
+          onDelete={this.contactDelete}
+        />
       </div>
     );
   }
 }
-
 
 export default App;

@@ -1,16 +1,28 @@
 import propTypes from 'prop-types';
-import css from './contact-list.module.css'
+import css from './contact-list.module.css';
 
-const ContactList = ({ contacts, onDelete }) => (
-    <ul className={css.list_contact}>
+const ContactList = ({ contacts, onDelete }) => {
+  if (contacts.length > 0) {
+    return (
+      <ul className={css.list_contact}>
         {contacts.map(contact => (
-          <li className={css.listItem_contact}  key={contact.id}>
+          <li className={css.listItem_contact} key={contact.id}>
             {contact.name}: {contact.number}
-            <button className={css.bttn_contactList} type='button' onClick={()=>onDelete(contact.id)}>Delete</button>
-           </li>  ))}
-    </ul>
-)
-    
+            <button
+              className={css.bttn_contactList}
+              type="button"
+              onClick={() => onDelete(contact.id)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    );
+  } else {
+    return <p>No data to display :(</p>;
+  }
+};
 
 ContactList.propTypes = {
   contact: propTypes.shape(
@@ -20,8 +32,7 @@ ContactList.propTypes = {
       number: propTypes.string.isRequired,
     })
   ),
-  deleteContact: propTypes.func,
+  onDelete: propTypes.func.isRequired,
 };
-
 
 export default ContactList;
